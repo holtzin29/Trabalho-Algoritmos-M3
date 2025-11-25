@@ -1,0 +1,74 @@
+UNIVERSIDADE DO VALE DO ITAJAÍ - UNIVALI
+Disciplina: Algoritmos e Programação II
+Professor(a): Welington Gadelha
+Game 2D - M3 - Arkanoid (C++ + Raylib)
+Objetivo
+Aplicar de forma integrada todos os conceitos estudados ao longo da disciplina:
+alocação dinâmica de memória, ponteiros, funções e sobrecargas, structs,
+passagem de parâmetros (valor e referência), módulos com .h, manipulação de
+arquivos, recursividade, escopo de variáveis e template de função.
+Descrição do Projeto
+A dupla deverá desenvolver o jogo Arkanoid 2D completo, no qual o jogador
+controla uma barra (paddle) que rebate uma bola para destruir blocos. O projeto
+deve ser construído modularmente, utilizando arquivos .h e .cpp, e evidenciar o
+uso correto dos tópicos da disciplina.
+Requisitos Funcionais do Jogo
+O game deve atender a todos os critérios listados abaixo:
+• Otimização: jogo fluido, sem travamentos desnecessários.
+• Estabilidade visual: sem flicker, deslocamentos ou piscadas fora da
+dinâmica natural.
+• Design caprichado: layout agradável, cores coerentes, fontes e sprites
+bem aplicados.
+• Menu principal: opções Iniciar Jogo, Dificuldades, Pontuação / Rank.
+• Níveis de dificuldade:
+o Fácil (padrão);
+UNIVERSIDADE DO VALE DO ITAJAÍ - UNIVALI
+Disciplina: Algoritmos e Programação II
+Professor(a): Welington Gadelha
+o Médio (+0.25x velocidade);
+o Difícil (+0.5x velocidade).
+• Cálculo de pontuação: baseado em tempo, blocos quebrados, itens
+coletados e dificuldade.
+• Ranking ordenado: exibir ranking de maior pontuação (lido de arquivo).
+• Salvar dados: nome, data, tempo e pontuação, mesmo em derrota.
+• Reinício ou voltar ao menu principal após fim de jogo.
+• Blocos aleatórios: posições e/ou cores variando a cada início de fase.
+• Durabilidade dos blocos: diferentes resistências (ex.: 1 a 3 toques).
+• Fases: pelo menos 3 fases progressivas.
+• Informações em tela: tempo, pontuação e itens ativos.
+• Itens especiais aleatórios: gerados ao quebrar blocos (queda vertical).
+o Vida extra (cumulativo);
+o Aumento do tamanho do paddle (cumulativo);
+o Diminuição do tamanho do paddle (cumulativo);
+o Pontos extras / multiplicador / inversor de pontuação.
+Critérios de Avaliação
+• Aplicação dos conceitos da disciplina: Evidência clara dos conteúdos
+teóricos: ponteiros, alocação dinâmica, funções, structs, passagem de
+parâmetros, templates, recursividade, escopo e arquivos.
+• Estrutura e organização do código: Projeto modular com .h e .cpp, boas
+práticas, clareza, indentação e nomes descritivos.
+• Funcionamento e jogabilidade: Cumprimento dos requisitos funcionais:
+movimentação, colisões, fases, itens, ranking, salvamento e reinício.
+• Desempenho e qualidade visual: Otimização, estabilidade, ausência de
+flicker, design coerente e interface organizada.
+• Criatividade e aprimoramentos: Elementos extras, menus animados, trilha
+sonora, efeitos, níveis ou melhorias de jogabilidade.
+Defesa do Projeto
+• O professor irá realizar a defesa do trabalho com o grupo, não havendo a
+necessidade de apresentar o trabalho para toda a turma
+• O professor poderá fazer perguntas sobre qualquer parte do código a
+qualquer um dos integrantes do grupo
+• Nota da apresentação será individual, além disso todas as notas relativas
+ao código dependem do desempenho na apresentação. Sem
+apresentação o trabalho terá nota ZERO
+UNIVERSIDADE DO VALE DO ITAJAÍ - UNIVALI
+Disciplina: Algoritmos e Programação II
+Professor(a): Welington Gadelha
+Entrega
+• Formato: código-fonte completo, organizado e comentado.
+• Publicação: repositório GitHub/GitLab com README.md descrevendo:
+o objetivos do projeto;
+o bibliotecas utilizadas;
+o controles do jogo e regras.
+• Envio: link do repositório no AVA dentro do prazo estipulado.
+Exemplos:

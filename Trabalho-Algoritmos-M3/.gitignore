@@ -1,0 +1,6 @@
+*.o
+arkanoid
+ranking.txt
+.vscode/
+*.exe
+*.out
