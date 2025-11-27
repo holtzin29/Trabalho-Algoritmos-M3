@@ -118,7 +118,7 @@ void desenharRanking(Ranking *ranking) {
     }
     
     if (ranking->qtdJogadores == 0) {
-        DrawText("Nenhum registro ainda!", SCREEN_WIDTH / 2 - 120, 250, 25, GRAY);
+        DrawText("Nenhum registro ainda", SCREEN_WIDTH / 2 - 120, 250, 25, GRAY);
     }
     
     DrawText("Pressione ESC para voltar", SCREEN_WIDTH / 2 - 140, SCREEN_HEIGTH - 40, 20, GRAY);

@@ -85,8 +85,6 @@ void desenharMenuVitoria(Menu *menu, int pontuacao, int tempo) {
 }
 
 void desenharMenuPausa(Menu *menu) {
-    // draw current screen background behind the pause overlay
-    // caller is expected to have drawn the game frame; here we just overlay
     DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGTH, Fade(BLACK, 0.5f));
 
     DrawText("PAUSADO", SCREEN_WIDTH / 2 - 100, 150, 50, WHITE);
