@@ -19,7 +19,7 @@ void desenharMenuPrincipal(Menu *menu) {
     const char *opcoes[] = {"Iniciar Jogo", "Dificuldades", "Ranking"};
     
     for (int i = 0; i < 3; i++) {
-        Color cor = (i == menu->opcaoSelecionada) ? RED : BLACK;
+        Color cor = (i == menu->opcaoSelecionada) ? BLUE : GREEN;
         DrawText(opcoes[i], SCREEN_WIDTH / 2 - 100, 250 + i * 50, 30, cor);
     }
     

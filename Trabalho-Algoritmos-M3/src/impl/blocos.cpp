@@ -70,64 +70,78 @@ void desenharBloco(Bloco *bloco) {
 bool verificarColisaoBloco(Bola *bola, Bloco *bloco) {
     if (!bloco->ativo) return false;
 
-    float closestX = fmax(bloco->posicao.x, fmin(bola->posicao.x, 
-                          bloco->posicao.x + bloco->largura));
-    float closestY = fmax(bloco->posicao.y, fmin(bola->posicao.y, 
-                          bloco->posicao.y + bloco->altura));
+    // Encontrar ponto mais próximo da bola no bloco
+    float pontoMaisProximoX = fmax(bloco->posicao.x, fmin(bola->posicao.x,
+                                bloco->posicao.x + bloco->largura));
+    float pontoMaisProximoY = fmax(bloco->posicao.y, fmin(bola->posicao.y,
+                                bloco->posicao.y + bloco->altura));
 
-    float distanciaX = bola->posicao.x - closestX;
-    float distanciaY = bola->posicao.y - closestY;
-    float distanciaQuadrada = (distanciaX * distanciaX) + (distanciaY * distanciaY);
+    // Distância entre o centro da bola e o ponto mais próximo
+    float distanciaX = bola->posicao.x - pontoMaisProximoX;
+    float distanciaY = bola->posicao.y - pontoMaisProximoY;
+    float distanciaQuadrada = distanciaX * distanciaX + distanciaY * distanciaY;
 
+    // Verificar colisão: círculo vs retângulo
     if (distanciaQuadrada < (bola->raio * bola->raio)) {
-        float centroX = bloco->posicao.x + bloco->largura / 2.0f;
-        float centroY = bloco->posicao.y + bloco->altura / 2.0f;
-        
-        float dx = bola->posicao.x - centroX;
-        float dy = bola->posicao.y - centroY;
-        
-        float larguraMetade = bloco->largura / 2.0f;
-        float alturaMetade = bloco->altura / 2.0f;
-        
-        float overlapX = larguraMetade + bola->raio - fabsf(dx);
-        float overlapY = alturaMetade + bola->raio - fabsf(dy);
-        
-        float velocidadeAtual = sqrtf(bola->velocidadeX * bola->velocidadeX + 
-                                       bola->velocidadeY * bola->velocidadeY);
-        
-        if (overlapX < overlapY) {
+
+        // Centro do bloco
+        float centroBlocoX = bloco->posicao.x + bloco->largura / 2.0f;
+        float centroBlocoY = bloco->posicao.y + bloco->altura / 2.0f;
+
+        // Diferença da posição da bola para o centro do bloco
+        float dx = bola->posicao.x - centroBlocoX;
+        float dy = bola->posicao.y - centroBlocoY;
+
+        float metadeLargura = bloco->largura / 2.0f;
+        float metadeAltura = bloco->altura / 2.0f;
+
+        float sobreposicaoX = metadeLargura + bola->raio - fabsf(dx);
+        float sobreposicaoY = metadeAltura + bola->raio - fabsf(dy);
+
+        // Velocidade atual da bola (módulo)
+        float velocidadeAntes = sqrtf(bola->velocidadeX * bola->velocidadeX +
+                                      bola->velocidadeY * bola->velocidadeY);
+
+        // Determinar lado da colisão
+        if (sobreposicaoX < sobreposicaoY) {
+            // Colisão horizontal
             if (dx > 0) {
                 bola->posicao.x = bloco->posicao.x + bloco->largura + bola->raio;
             } else {
                 bola->posicao.x = bloco->posicao.x - bola->raio;
             }
             bola->velocidadeX = -bola->velocidadeX;
+
         } else {
+            // Colisão vertical
             if (dy > 0) {
                 bola->posicao.y = bloco->posicao.y + bloco->altura + bola->raio;
             } else {
                 bola->posicao.y = bloco->posicao.y - bola->raio;
             }
             bola->velocidadeY = -bola->velocidadeY;
+
+            // Impedir que a bola fique muito lenta no eixo Y
             if (fabsf(bola->velocidadeY) < 50.0f) {
                 bola->velocidadeY = (bola->velocidadeY > 0) ? 50.0f : -50.0f;
             }
         }
-        
-        if (velocidadeAtual > 0.001f) {
-            float novaVelocidade = sqrtf(bola->velocidadeX * bola->velocidadeX + 
-                                          bola->velocidadeY * bola->velocidadeY);
-            if (novaVelocidade > 0.001f) {
-                bola->velocidadeX *= velocidadeAtual / novaVelocidade;
-                bola->velocidadeY *= velocidadeAtual / novaVelocidade;
-            }
+
+        // Reajustar módulo da velocidade após o impacto
+        float velocidadeDepois = sqrtf(bola->velocidadeX * bola->velocidadeX +
+                                       bola->velocidadeY * bola->velocidadeY);
+
+        if (velocidadeAntes > 0.001f && velocidadeDepois > 0.001f) {
+            bola->velocidadeX *= velocidadeAntes / velocidadeDepois;
+            bola->velocidadeY *= velocidadeAntes / velocidadeDepois;
         }
-        
+
         return true;
     }
-    
+
     return false;
 }
+
 
 void danificarBloco(Bloco *bloco) {
     if (bloco->ativo) {
