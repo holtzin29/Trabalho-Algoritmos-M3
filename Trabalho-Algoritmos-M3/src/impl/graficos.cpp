@@ -1,16 +1,61 @@
 #include "../header/graficos.h"
 #include "../header/constantes.h"
 #include <cmath>
+#include <cstdio>
+#include <string>
 
-void desenharFundo(int fase, float tempo) {
-    if (fase == 1) {
-        desenharFundoFloresta(tempo);
-    } else if (fase == 2) {
-        desenharFundoOceano(tempo);
-    } else {
-        desenharFundoVulcao(tempo);
+static Texture2D menuTexture = {0};
+static bool menuTextureLoaded = false;
+
+static Texture2D mapa1Texture = {0};
+static bool mapa1TextureLoaded = false;
+
+static bool fileExists(const char *path) {
+    FILE *f = fopen(path, "rb");
+    if (f) { fclose(f); return true; }
+    return false;
+}
+
+void inicializarGraficos() {
+    // try a few locations for the menu image
+    const char *candidatesMenu[] = {"menu_imagem.jpeg", "menu_imagem.jpg", "assets/menu_imagem.jpeg", "assets/menu_imagem.jpg"};
+    for (auto &c : candidatesMenu) {
+        if (fileExists(c)) {
+            menuTexture = LoadTexture(c);
+            menuTextureLoaded = true;
+            break;
+        }
+    }
+
+    const char *candidatesMapa1[] = {"mapa1.jpeg", "mapa1.jpg", "assets/mapa1.jpeg", "assets/mapa1.jpg"};
+    for (auto &c : candidatesMapa1) {
+        if (fileExists(c)) {
+            mapa1Texture = LoadTexture(c);
+            mapa1TextureLoaded = true;
+            break;
+        }
     }
 }
+
+void descarregarGraficos() {
+    if (menuTextureLoaded) UnloadTexture(menuTexture);
+    if (mapa1TextureLoaded) UnloadTexture(mapa1Texture);
+    menuTextureLoaded = false;
+    mapa1TextureLoaded = false;
+}
+
+void desenharBackgroundMenu() {
+    if (menuTextureLoaded) {
+        // draw scaled to screen preserving aspect via DrawTexturePro
+        Rectangle src = {0.0f, 0.0f, (float)menuTexture.width, (float)menuTexture.height};
+        Rectangle dst = {0.0f, 0.0f, (float)SCREEN_WIDTH, (float)SCREEN_HEIGTH};
+        Vector2 origin = {0.0f, 0.0f};
+        DrawTexturePro(menuTexture, src, dst, origin, 0.0f, WHITE);
+    } else {
+        ClearBackground(RAYWHITE);
+    }
+}
+
 
 void desenharFundoFloresta(float tempo) {
     for (int y = 0; y < SCREEN_HEIGTH; y += 2) {
@@ -166,5 +211,25 @@ void desenharFundoVulcao(float tempo) {
                 DrawCircle(baseX + 15, y + altura/2, 4, (Color){255, 100, 0, (int)(brilho * 180)});
             }
         }
+    }
+}
+
+void desenharFundo(int fase, float tempo) {
+    // If fase 1 and a map image was provided, draw it as background
+    if (fase == 1 && mapa1TextureLoaded) {
+        Rectangle src = {0.0f, 0.0f, (float)mapa1Texture.width, (float)mapa1Texture.height};
+        Rectangle dst = {0.0f, 0.0f, (float)SCREEN_WIDTH, (float)SCREEN_HEIGTH};
+        Vector2 origin = {0.0f, 0.0f};
+        DrawTexturePro(mapa1Texture, src, dst, origin, 0.0f, WHITE);
+        return;
+    }
+
+    // fallback to original procedural backgrounds
+    if (fase == 1) {
+        desenharFundoFloresta(tempo);
+    } else if (fase == 2) {
+        desenharFundoOceano(tempo);
+    } else {
+        desenharFundoVulcao(tempo);
     }
 }

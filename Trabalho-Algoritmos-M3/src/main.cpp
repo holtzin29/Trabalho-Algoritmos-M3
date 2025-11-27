@@ -1,4 +1,5 @@
 #include "raylib.h"
+#include "header/graficos.h"
 #include "header/jogo.h"
 #include "header/menu.h"
 #include "header/ranking.h"
@@ -9,6 +10,7 @@
 int main() {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGTH, "Arkanoid - Trabalho M3");
     SetTargetFPS(60);
+    inicializarGraficos();
     
     Menu menu;
     Ranking ranking;
@@ -166,6 +168,7 @@ int main() {
     if (jogoInicializado) {
         finalizarJogo(&jogo);
     }
+    descarregarGraficos();
     
     CloseWindow();
     

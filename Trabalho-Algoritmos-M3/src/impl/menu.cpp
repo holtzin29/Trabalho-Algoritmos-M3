@@ -2,6 +2,7 @@
 #include "../header/constantes.h"
 #include "raylib.h"
 #include <cstring>
+#include "../header/graficos.h"
 
 void inicializarMenu(Menu *menu) {
     menu->opcaoSelecionada = 0;
@@ -11,7 +12,7 @@ void inicializarMenu(Menu *menu) {
 }
 
 void desenharMenuPrincipal(Menu *menu) {
-    ClearBackground(RAYWHITE);
+    desenharBackgroundMenu();
     
     DrawText("ARKANOID", SCREEN_WIDTH / 2 - 150, 100, 60, DARKBLUE);
     
@@ -28,7 +29,7 @@ void desenharMenuPrincipal(Menu *menu) {
 }
 
 void desenharMenuDificuldade(Menu *menu) {
-    ClearBackground(RAYWHITE);
+    desenharBackgroundMenu();
     
     DrawText("SELECIONE A DIFICULDADE", SCREEN_WIDTH / 2 - 200, 100, 40, DARKBLUE);
     
@@ -45,7 +46,7 @@ void desenharMenuDificuldade(Menu *menu) {
 }
 
 void desenharMenuGameOver(Menu *menu, int pontuacao, int tempo) {
-    ClearBackground(RAYWHITE);
+    desenharBackgroundMenu();
     
     DrawText("GAME OVER", SCREEN_WIDTH / 2 - 150, 100, 60, RED);
     
@@ -64,7 +65,7 @@ void desenharMenuGameOver(Menu *menu, int pontuacao, int tempo) {
 }
 
 void desenharMenuVitoria(Menu *menu, int pontuacao, int tempo) {
-    ClearBackground(RAYWHITE);
+    desenharBackgroundMenu();
     
     DrawText("VITORIA!", SCREEN_WIDTH / 2 - 120, 100, 60, GREEN);
     DrawText("Parabens! Voce completou todas as fases!", SCREEN_WIDTH / 2 - 250, 180, 20, DARKGREEN);
@@ -84,8 +85,10 @@ void desenharMenuVitoria(Menu *menu, int pontuacao, int tempo) {
 }
 
 void desenharMenuPausa(Menu *menu) {
+    // draw current screen background behind the pause overlay
+    // caller is expected to have drawn the game frame; here we just overlay
     DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGTH, Fade(BLACK, 0.5f));
-    
+
     DrawText("PAUSADO", SCREEN_WIDTH / 2 - 100, 150, 50, WHITE);
     
     const char *opcoes[] = {"Continuar", "Menu Principal"};
@@ -122,7 +125,7 @@ int atualizarMenu(Menu *menu) {
 }
 
 void desenharMenuRegistro(Menu *menu) {
-    ClearBackground(RAYWHITE);
+    desenharBackgroundMenu();
     
     int tituloLargura = MeasureText("DIGITE SEU NOME", 40);
     DrawText("DIGITE SEU NOME", SCREEN_WIDTH / 2 - tituloLargura / 2, 100, 40, DARKBLUE);
