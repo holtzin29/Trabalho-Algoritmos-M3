@@ -17,7 +17,6 @@ static bool fileExists(const char *path) {
 }
 
 void inicializarGraficos() {
-    // try a few locations for the menu image
     const char *candidatesMenu[] = {"menu_imagem.jpeg", "menu_imagem.jpg", "assets/menu_imagem.jpeg", "assets/menu_imagem.jpg"};
     for (auto &c : candidatesMenu) {
         if (fileExists(c)) {
@@ -46,7 +45,6 @@ void descarregarGraficos() {
 
 void desenharBackgroundMenu() {
     if (menuTextureLoaded) {
-        // draw scaled to screen preserving aspect via DrawTexturePro
         Rectangle src = {0.0f, 0.0f, (float)menuTexture.width, (float)menuTexture.height};
         Rectangle dst = {0.0f, 0.0f, (float)SCREEN_WIDTH, (float)SCREEN_HEIGTH};
         Vector2 origin = {0.0f, 0.0f};
@@ -215,7 +213,6 @@ void desenharFundoVulcao(float tempo) {
 }
 
 void desenharFundo(int fase, float tempo) {
-    // If fase 1 and a map image was provided, draw it as background
     if (fase == 1 && mapa1TextureLoaded) {
         Rectangle src = {0.0f, 0.0f, (float)mapa1Texture.width, (float)mapa1Texture.height};
         Rectangle dst = {0.0f, 0.0f, (float)SCREEN_WIDTH, (float)SCREEN_HEIGTH};
@@ -224,7 +221,6 @@ void desenharFundo(int fase, float tempo) {
         return;
     }
 
-    // fallback to original procedural backgrounds
     if (fase == 1) {
         desenharFundoFloresta(tempo);
     } else if (fase == 2) {

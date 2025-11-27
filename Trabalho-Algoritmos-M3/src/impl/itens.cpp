@@ -25,7 +25,6 @@ void atualizarItem(Item *item, float dt) {
         item->ativo = false;
     }
 }
-// TODO
 void desenharItem(Item *item) {
     if (!item->ativo) return;
     
