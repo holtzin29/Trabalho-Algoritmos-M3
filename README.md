@@ -212,6 +212,8 @@ resources/          # Recursos do jogo
 Trabalho desenvolvido como atividade prática da disciplina **Algoritmos e Programação II** da Universidade do Vale do Itajaí (UNIVALI).
 
 **Professor**: Welington Gadelha
+**Alunos**:Mauro Grippa Junior
+**Alunos**: Tiffany Ribeiro
 
 ## 📝 Notas
 
